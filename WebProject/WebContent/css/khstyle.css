@@ -1,0 +1,15 @@
+/*
+h1 {
+	font-size: 12px;
+	color: red;
+}
+
+body{
+	background-image: url(../images/actor.jpg);
+}
+
+*/
+ul{ list-style-type : none;}
+img{
+	width: 500px; hegiht: 500px;
+}
