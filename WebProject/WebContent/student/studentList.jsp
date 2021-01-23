@@ -6,6 +6,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<jsp:useBean id="studentDAO" class="haksa.StudentDAO" scope="page" />
+<jsp:useBean id="studentDTO" class="haksa.StudentDTO" scope="page" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,6 +176,9 @@ width: 300px
 <title>Travel</title>
 </head>
 <body>
+<%
+ResultSet rs = studentDAO.studentListSql();
+%>
 	<form action="../index.jsp" method="get">
 	<div class="member11">
 		<a href="../index.jsp">홈</a> | <a href="#">회원가입</a> | <a href="#">로그인</a>
@@ -200,26 +205,15 @@ width: 300px
 					<th>학번</th>
 					</tr>
 						<%
-							Class.forName("com.mysql.jdbc.Driver");
-							Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?serverTimezone=Asia/Seoul", "bbr123", "alstjr95!");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?characterEncoding=utf8", "bbr123", "alstjr95!");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bbr123", "bbr123", "alstjr95!");
-							//Statement stmt = conn.createStatement();
-							//String sql = "select * from StudentA";
-
-							String sql = "select * from StudentA";
-							PreparedStatement pstmt = conn.prepareStatement(sql);
-						
-							ResultSet rs = pstmt.executeQuery();
-							while (rs.next()) {
-								int no = rs.getInt("no");
-								String name = rs.getString("name");
-								String age = rs.getString("age");
-								String hakbun = rs.getString("hakbun");
-								out.print("<tr><td>" + no + "</td>"+"<td>" + name + "</td>"+"<td>" + age + "</td>"+"<td>" + hakbun + "</td></tr>");
+							
+						 while (rs.next()) {
+					            studentDTO.setNo(rs.getInt("no"));
+					            studentDTO.setAge(rs.getString("age"));
+					            studentDTO.setName(rs.getString("name"));
+					            studentDTO.setHakbun(rs.getString("hakbun"));
+					            out.print("<tr><td>" + studentDTO.getNo() + "</td><td>" + studentDTO.getName() + "</td><td>" + studentDTO.getAge()
+					            + "</td><td>" + studentDTO.getHakbun() + "</td></tr>");
 							}
-							pstmt.close();
-							conn.close();
 						%>
 						</table>
 						</div>

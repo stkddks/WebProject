@@ -6,6 +6,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<jsp:useBean id="managerDAO" class="haksa.ManagerDAO" scope="page" />
+<jsp:useBean id="managerDTO" class="haksa.ManagerDTO" scope="page" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,6 +176,9 @@ width: 300px
 <title>Travel</title>
 </head>
 <body>
+<%
+ResultSet rs = managerDAO.managerListSql();
+%>
 	<form action="../index.jsp" method="get">
 	<div class="member11">
 		<a href="../index.jsp">홈</a> | <a href="#">회원가입</a> | <a href="#">로그인</a>
@@ -200,24 +205,15 @@ width: 300px
 					<th>부서</th>
 					</tr>
 						<%
-							Class.forName("com.mysql.jdbc.Driver");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?serverTimezone=Asia/Seoul", "bbr123", "alstjr95!");
-							Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?characterEncoding=utf8", "bbr123", "alstjr95!");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bbr123", "bbr123", "alstjr95!");
-
-							String sql = "select * from ManagerA";
-							PreparedStatement pstmt = conn.prepareStatement(sql);
-							ResultSet rs = pstmt.executeQuery();
 							
-							while (rs.next()) {
-								int no = rs.getInt("no");
-								String name = rs.getString("name");
-								String age = rs.getString("age");
-								String dept = rs.getString("dept");
-								out.print("<tr><td>" + no + "</td>"+"<td>" + name + "</td>"+"<td>" + age + "</td>"+"<td>" + dept + "</td></tr>");
+						 while (rs.next()) {
+					            managerDTO.setNo(rs.getInt("no"));
+					            managerDTO.setAge(rs.getString("age"));
+					            managerDTO.setName(rs.getString("name"));
+					            managerDTO.setDept(rs.getString("dept"));
+					            out.print("<tr><td>" + managerDTO.getNo() + "</td><td>" + managerDTO.getName() + "</td><td>" + managerDTO.getAge()
+					            + "</td><td>" + managerDTO.getDept() + "</td></tr>");
 							}
-							pstmt.close();
-							conn.close();
 						%>
 						
 						</table>

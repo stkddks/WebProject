@@ -161,7 +161,7 @@ input[type="checkbox"] {
 <title>Travle</title>
 </head>
 <body>
-	<form action="managerDelete.jsp" method="get">
+	<form action="../managerDelete.do" method="get">
 		<div class="member11">
 			<a href="../index.jsp">홈</a> | <a href="#">회원가입</a> | <a href="#">로그인</a>
 		</div>

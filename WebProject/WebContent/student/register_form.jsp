@@ -149,7 +149,8 @@ input[type="checkbox"] {
 <title>Travel</title>
 </head>
 <body>
-	<form action="studentRegister.jsp" method="get">
+<!-- <form action="../haksa" method="get"> -->
+	<form action="../studentRegister.do" method="get">
 		<div class="member11">
 		<a href="../index.jsp">홈</a> | <a href="#">회원가입</a> | <a href="#">로그인</a>
 	</div>

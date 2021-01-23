@@ -158,7 +158,7 @@ input[type="checkbox"] {
 <title>Travel</title>
 </head>
 <body>
-<form action="updateConfirm_form2.jsp" method="get">
+<form action="../managerUpdate.do" method="get">
 		<div class="member11">
 			<a href="../index.jsp">홈</a> | <a href="#">회원가입</a> | <a href="#">로그인</a>
 		</div>

@@ -6,6 +6,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<jsp:useBean id="professorDAO" class="haksa.ProfessorDAO" scope="page" />
+<jsp:useBean id="professorDTO" class="haksa.ProfessorDTO" scope="page" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,6 +176,9 @@ width: 300px
 <title>Travel</title>
 </head>
 <body>
+<%
+ResultSet rs = professorDAO.professorListSql();
+%>
 	<form action="../index.jsp" method="get">
 	<div class="member11">
 		<a href="../index.jsp">홈</a> | <a href="#">회원가입</a> | <a href="#">로그인</a>
@@ -200,29 +205,15 @@ width: 300px
 					<th>과목</th>
 					</tr>
 						<%
-							Class.forName("com.mysql.jdbc.Driver");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?serverTimezone=Asia/Seoul", "bbr123", "alstjr95!");
-							Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?characterEncoding=utf8", "bbr123", "alstjr95!");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bbr123", "bbr123", "alstjr95!");
 							
-							//Statement stmt = conn.createStatement();
-							//String sql = "select * from ProfessorA";
-							//ResultSet rs = stmt.executeQuery(sql);
-
-							String sql = "select * from ProfessorA";
-							PreparedStatement pstmt = conn.prepareStatement(sql);
-						
-							ResultSet rs = pstmt.executeQuery();
-							
-							while (rs.next()) {
-								int no = rs.getInt("no");
-								String name = rs.getString("name");
-								String age = rs.getString("age");
-								String subject = rs.getString("subject");
-								out.print("<tr><td>" + no + "</td>"+"<td>" + name + "</td>"+"<td>" + age + "</td>"+"<td>" + subject + "</td></tr>");
+						 while (rs.next()) {
+							 professorDTO.setNo(rs.getInt("no"));
+							 professorDTO.setAge(rs.getString("age"));
+							 professorDTO.setName(rs.getString("name"));
+							 professorDTO.setSubject(rs.getString("subject"));
+					            out.print("<tr><td>" + professorDTO.getNo() + "</td><td>" + professorDTO.getName() + "</td><td>" + professorDTO.getAge()
+					            + "</td><td>" + professorDTO.getSubject() + "</td></tr>");
 							}
-							pstmt.close();
-							conn.close();
 						%>
 						
 						</table>
