@@ -1,3 +1,4 @@
+<%@page import="board.BoardDTO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -16,9 +17,11 @@ body {
 	color: white;
 	height: 2000px;
 }
-ul{
-list-style-type: none;
+
+ul {
+	list-style-type: none;
 }
+
 .form4 li {
 	float: left;
 	margin: 20px;
@@ -101,7 +104,7 @@ a:hover {
 
 .form {
 	/* width: auto;*/
-	height: auto; 
+	height: auto;
 	border-radius: 25px;
 	border: 5px double #999;
 	margin: 30px auto auto auto;
@@ -113,7 +116,6 @@ a:hover {
 	height: auto;
 	margin: auto auto;
 	text-align: left;
-	
 }
 
 .form3 {
@@ -131,20 +133,20 @@ a:hover {
 }
 
 .form4 {
-padding: 0px 10px 0px 0px;
+	padding: 0px 10px 0px 0px;
 	/* align-content: center;
 	float: center; */
 }
 
 .form4 li {
 	float: left;
-	margin: 10px 10px; 
+	margin: 10px 10px;
 }
 
-.form4 label{
-color: white;
-text-align: left;
-margin-right: 10px;
+.form4 label {
+	color: white;
+	text-align: left;
+	margin-right: 10px;
 }
 
 .clear {
@@ -160,8 +162,8 @@ input[type="submit"] {
 	/*  width: 140px; */
 	font-family: "맑은 고딕";
 	margin-top: 20px;
-	
 }
+
 input[type="button"] {
 	width: 100%;
 	height: 30px;
@@ -170,7 +172,6 @@ input[type="button"] {
 	/*  width: 140px; */
 	font-family: "맑은 고딕";
 	margin-top: 20px;
-	
 }
 
 input[type="checkbox"] {
@@ -199,8 +200,11 @@ td {
 <title>Travel</title>
 </head>
 <body>
-	<form action="boardUpdate.jsp" method="get">
-		
+<%
+BoardDTO boardDTO = (BoardDTO) request.getAttribute("boardDTO");
+%>
+	<form action="boardUpdateFinal.bo" method="get">
+
 		<div id="wrap">
 			<h1 class="title">member update</h1>
 			<div class="form">
@@ -219,77 +223,48 @@ td {
 								<th>조회수</th>
 							</tr>
 							<tr>
-						<%
-							String searchTitle = request.getParameter("title");
-							int no = 0;
-							String title = null;
-							String content = null;
-							String author = null;
-							String nal = null;
-							int readcount = 0;
-							
-							Class.forName("com.mysql.jdbc.Driver");
-							Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?serverTimezone=Asia/Seoul","bbr123", "alstjr95!");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?characterEncoding=utf8", "bbr123", "alstjr95!");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bbr123", "bbr123", "alstjr95!");
-
-							String sql = "select * from BoardA where title=?";
-							PreparedStatement pstmt = conn.prepareStatement(sql);
-							pstmt.setString(1, searchTitle);
-							ResultSet rs = pstmt.executeQuery();
-							
-							
-							while (rs.next()) {
-								no = rs.getInt("no");
-								title = rs.getString("title");
-								content = rs.getString("content");
-								author = rs.getString("author");
-								nal = rs.getString("nal");
-								readcount = rs.getInt("readcount");
-								out.print("<tr><td>" + no + "</td><td>" + title + "</td><td>" + content + "</td><td>" + author + "</td><td>" + nal + "</td><td>" + readcount + "</td></tr>");
-							}
-							pstmt.close();
-							conn.close();
-						%>
-						</tr>
+								<td><%=boardDTO.getNo()%></td>
+								<td><%=boardDTO.getTitle()%></td>
+								<td><%=boardDTO.getContent()%></td>
+								<td><%=boardDTO.getAuthor()%></td>
+								<td><%=boardDTO.getNal()%></td>
+								<td><%=boardDTO.getReadcount()%></td>
+							</tr>
 						</table>
 						<br>
 						<hr>
 						<br>
 					</div>
 					<div class="form4">
-								<ul>
+						<ul>
 							<li>
-								<label for="번호">번호&nbsp;&nbsp;&nbsp;</label>
-   								<input type="number" readonly="readonly" value="<%=no %>">
-   								<input type="hidden" name="no" value="<%=no %>">
-   							</li>
-							<li>
-								<label for="제목" class="content">제목&nbsp;&nbsp;&nbsp;</label> 
-								<input type="text" name="uptitle" autofocus="autofocus" required="required" placeholder="제목을 입력하세요" size="47" maxlength="100">
-								<input type="hidden" name="searchTitle" value="<%=searchTitle %>">
+							<label for="번호">번호&nbsp;&nbsp;&nbsp;</label> 
+							<input type="number" name="no" readonly="readonly" value="<%=boardDTO.getNo()%>"> 
 							</li>
 							<li>
-								<label for="내용" class="content1">내용&nbsp;&nbsp;&nbsp;</label> 
-								<textarea rows="20" cols="40" name="upcontent" placeholder="내용을입력해주세요" class="content2"></textarea>
+							<label for="제목" class="content">제목&nbsp;&nbsp;&nbsp;</label>
+								<input type="text" name="uptitle" autofocus="autofocus" required="required" placeholder="제목을 입력하세요" size="47" maxlength="100"> 
+								<input type="hidden" name="searchTitle" value="<%=boardDTO.getTitle()%>">
+								</li>
+							<li>
+							<label for="내용" class="content1">내용&nbsp;&nbsp;&nbsp;</label>
+								<textarea rows="20" cols="40" name="upcontent" placeholder="내용을입력해주세요" class="content2"></textarea></li>
+							<li>
+							<label for="작성자" class="content2">작성자</label> 
+							<input type="text" name="upauthor" size="47" placeholder="작성자입력">
 							</li>
 							<li>
-								<label for="작성자" class="content2">작성자</label> 
-								<input type="text" name="upauthor" size = "47" placeholder="작성자입력">
+							<label for="날짜" class="content3">날 &nbsp;&nbsp;짜</label>
+								<input type="text" name="upnal" size="18"> <!-- <input type="date" name="nal"> -->
 							</li>
 							<li>
-								<label for="날짜" class="content3">날 &nbsp;&nbsp;짜</label> 
-								<input type="text" name="upnal" size = "18">
-								<!-- <input type="date" name="nal"> -->
+							<label for="조회수">조회수</label> 
+							<input type="number" name="upreadcount" size="15" placeholder="변경할 조회수를 입력해 주세요">
 							</li>
-							<li>
-								<label for="조회수">조회수</label>
-   								<input type="number" name="upreadcount" size = "15" placeholder="변경할 조회수를 입력해 주세요">
-   							</li>
 						</ul>
-								<!-- <input type="date" name="nal"> -->
+						<!-- <input type="date" name="nal"> -->
 					</div>
-					<input type="submit" value="수정하기"><br><br><br>
+					<input type="submit" value="수정하기"><br> <br> <br>
 
 					<!-- <input type="submit" value="삭제하기" onClick="location.href='studentList.jsp'" > -->
 				</div>

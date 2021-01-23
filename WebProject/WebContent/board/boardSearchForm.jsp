@@ -1,5 +1,10 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+	<%-- <jsp:useBean id="boardSearch" class="kh.or.kh.board.BoardDAO" scope="page" /> --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,7 +106,7 @@ a:hover {
 
 .form2 {
 	width: 380px;
-	height: 100px;
+	height: auto;
 	margin: 80px auto;
 	text-align: center;
 }
@@ -118,9 +123,8 @@ a:hover {
 	float: left;
 }
 
-.form4 {
-	padding: 0px 0px 0px 0px;
-	float: left;
+.form5{
+margin-top: 20px;
 }
 
 .clear {
@@ -137,6 +141,16 @@ input[type="submit"] {
 	border: none;
 	font-family: "맑은 고딕";
 	margin-left: 20px;
+}
+
+input[type="button"] {
+	width: 45%;
+	height: 30px;
+	background: skyblue;
+	border-radius: 5px;
+	/*  width: 140px; */
+	font-family: "맑은 고딕";
+	margin-top: 10px;
 }
 
 table {
@@ -156,30 +170,38 @@ td {
 	width: 4000px;
 }
 </style>
-
 <meta charset="UTF-8">
 <title>Travel</title>
 </head>
 <body>
-<form action="boardUpdate.bo" method="get">
-<!-- <form action="index.jsp?page=boardUpdateConfirm" method="get"> -->
-		
+	<form action="boardSearch.bo" method="get">
+
 		<div id="wrap">
-			<h1 class="title">board modify</h1>
+			<h1 class="title">content search</h1>
 			<div class="form">
 				<div class="form2">
 					<div class="form3">
-						<label for="user">수정할 제목</label> 
-						<input type="text" name="searchTitle" id="user">
+						<input type="hidden" name="readcount" value="0"> 
+							<label for="user">찾을 제목</label> 
+							<input type="text" name="title" autofocus="autofocus" required="required" placeholder="제목입력" id="user">
 						<div class="clear"></div>
+
 					</div>
-					<!-- <input type="submit" value="수정하기"> -->
-					<input type="submit" value="수정하기" >
-					<div class="clear"></div>
+					<div class="form4">
+						<input type="submit" value="검색하기">
+					</div>
+					<br><br><br>
 					
+					<div class="form5">
+						<input type="button" value="게시판" onclick='location.href="index.jsp?page=board/boardList"'>
+						<input type="button" value="메인페이지" onclick='location.href="index.jsp"'>
+							<!-- <label><input type="button" value="학생리스트" onclick='location.href="studentList.jsp"'></label> 
+							<label><input type="button" value="메인페이지" onclick='location.href="index.jsp"'></label> -->
+						</div>
 				</div>
 			</div>
 		</div>
 	</form>
+
 </body>
 </html>

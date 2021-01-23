@@ -1,3 +1,5 @@
+<%@page import="board.BoardDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -15,17 +17,14 @@ body {
 	font-family: Arial, sans-serif;
 	/* font-family: "맑은 고딕"; */
 	font-size: 15px;
-	
 	color: white;
 }
-
 
 #wrap {
 	width: 600px;
 	height: 500px;
 	margin: 50px auto;
 }
-
 
 .title {
 	font-size: 50px;
@@ -59,10 +58,12 @@ body {
 	text-align: center;
 	/*   background:#f00;  */
 }
+
 .form3 li {
 	float: left;
 	margin: 20px;
 }
+
 .form3 label {
 	width: 100px;
 	height: 20px;
@@ -112,8 +113,9 @@ th {
 	color: white;
 	width: 300px
 }
-td{
-width: 4000px;
+
+td {
+	width: 4000px;
 }
 </style>
 <meta charset="UTF-8">
@@ -137,42 +139,42 @@ width: 4000px;
 								<th>조회수</th>
 							</tr>
 							<%
-								Class.forName("com.mysql.jdbc.Driver");
-								Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?serverTimezone=Asia/Seoul", "bbr123", "alstjr95!");
-								//Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?characterEncoding=utf8", "bbr123", "alstjr95!");
-								//Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bbr123", "bbr123", "alstjr95!");
-								
-
-								String sql = "select * from BoardA";
-								PreparedStatement pstmt = conn.prepareStatement(sql);
-
-								ResultSet rs = pstmt.executeQuery();
-								int no = 0;
-								String title = null;
-								String content = null;
-								String author = null;
-								String nal = null;
-								int readcount = 0;
-								while (rs.next()) {
-									no = rs.getInt("no");
-									title = rs.getString("title");
-									content = rs.getString("content");
-									author = rs.getString("author");
-									nal = rs.getString("nal");
-									readcount = rs.getInt("readcount");
-									out.print("<tr><td>" + no + "</td><td>" + title + "</td><td>" + content + "</td><td>" + author
-											+ "</td><td>" + nal + "</td><td>" + readcount + "</td></tr>");
-
+								//ArrayList<BoardDTO> boardList=new ArrayList<BoardDTO>();
+							ArrayList<BoardDTO> boardList = (ArrayList<BoardDTO>) request.getAttribute("boardList");
+							//getParameter는 서브밋에서 폼에서 전송할때 받을때 쓰는 것이여
+							//객체를 이름과 값으로 쌍으로 묶에서 값을 불러올때는 getAttribute를 쓴다
+							// 페이지도 움직이면서 값도 보내줘야 할때는 getAttribute를 써야한다.
+							//왜 ArrayList타입으로 바꿔줘야해? 형변환 왜해줘?
+							for (int i = 0; i < boardList.size(); i++) {
+								BoardDTO boardDTO = boardList.get(i);
+								//boardDTO.setNo(no);
+							%>
+							<tr>
+								<td><%=boardDTO.getNo()%></td>
+								<td><%=boardDTO.getTitle()%></td>
+								<td><%=boardDTO.getContent()%></td>
+								<td><%=boardDTO.getAuthor()%></td>
+								<td><%=boardDTO.getNal()%></td>
+								<td><%=boardDTO.getReadcount()%></td>
+								<td><a href="boardDelete.bo?no=<%=boardDTO.getNo()%>">삭제</a></td>
+							</tr>
+							<%
 								}
 							%>
+
 						</table>
 					</div>
 					<div class="form4">
-					<input type="button" value="글쓰기" onclick='location.href="index.jsp?page=board/boardWrite"'>
-					<input type="button" value="검색하기" onclick='location.href="index.jsp?page=boardSearchForm"'>
-					<input type="button" value="수정하기" onclick='location.href="index.jsp?page=board/boardUpdateForm"'>
-					<input type="button" value="삭제하기" onclick='location.href="index.jsp?page=board/boardDeleteForm"'>
-						<input type="button" value="메인페이지" onclick='location.href="index.jsp"'>
+						<input type="button" value="글쓰기"
+							onclick='location.href="index.jsp?page=board/boardWrite"'>
+						<input type="button" value="검색하기"
+							onclick='location.href="index.jsp?page=board/boardSearchForm"'>
+						<input type="button" value="수정하기"
+							onclick='location.href="index.jsp?page=board/boardUpdateForm"'>
+						<input type="button" value="삭제하기"
+							onclick='location.href="index.jsp?page=board/boardDeleteForm"'>
+						<input type="button" value="메인페이지"
+							onclick='location.href="index.jsp"'>
 						<!-- <a href="student.jsp"></a> <a href="studentList.jsp"></a> -->
 					</div>
 				</div>

@@ -171,7 +171,7 @@ td {
 			<div class="form">
 				<div class="form2">
 					<div class="form3">
-						<label for="user">삭제 제목</label> <input type="text" name="title"
+						<label for="user">삭제 제목</label> <input type="text" name="no"
 							id="user">
 					</div>
 					<div class="form4">

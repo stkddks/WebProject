@@ -118,7 +118,7 @@ input[type="submit"] {
 <title>Travel</title>
 </head>
 <body>
-	<form action="board/boardRegister.jsp" method="get">
+	<form action="boardRegister.bo" method="get">
 		<input type="hidden" name="readcount" value="0">
 		<div id="wrap">
 			<h1 class="title">Board Write</h1>
