@@ -1,3 +1,4 @@
+<%@page import="kr.or.kh.member.MemberDTO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -195,13 +196,17 @@ td {
 <title>Travel</title>
 </head>
 <body>
-	<form action="memberUpdate.jsp" method="get">
+	<form action="memberUpdateFinal.mb" method="get">
 		
 		<div id="wrap">
 			<h1 class="title">member update</h1>
 			<div class="form">
 				<div class="form2">
 					<div class="form3">
+					<%
+							MemberDTO memberDTO = (MemberDTO) request.getAttribute("memberDTO");
+						/* memberSearch.memberReadcount(memberDTO); */
+						%>
 						<h1>최종 변경하기 전 내용입니다</h1>
 						<hr>
 						<br>
@@ -213,34 +218,11 @@ td {
 								<th>전화번호</th>
 							</tr>
 							<tr>
-						<%
-							String searchId = request.getParameter("id");
-							Class.forName("com.mysql.jdbc.Driver");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?serverTimezone=Asia/Seoul","bbr123", "alstjr95!");
-							//Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123?characterEncoding=utf8", "bbr123", "alstjr95!");
-							Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bbr123", "bbr123", "alstjr95!");
-
-							String sql = "select * from MemberA where id=?";
-							PreparedStatement pstmt = conn.prepareStatement(sql);
-							pstmt.setString(1, searchId);
-							ResultSet rs = pstmt.executeQuery();
-							
-							/* String id = null;
-							String pw = null;
-							String address = null;
-							String tel = null;
-							 */
-							while (rs.next()) {
-								String id = rs.getString("id");
-						    	String pw = rs.getString("pw");
-						    	String addr = rs.getString("addr");
-						    	String tel = rs.getString("tel");
-								out.print("<tr><td>" + id + "</td><td>" + pw + "</td><td>" + addr + "</td><td>" + tel + "</td></tr>");
-							}
-							pstmt.close();
-							conn.close();
-						%>
-						</tr>
+								<td><%=memberDTO.getId()%></td>
+								<td><%=memberDTO.getPw()%></td>
+								<td><%=memberDTO.getAddr()%></td>
+								<td><%=memberDTO.getTel()%></td>
+							</tr>
 						</table>
 						<br>
 						<hr>
@@ -249,11 +231,11 @@ td {
 					<div class="form4">
 						
 						<label for="user">아이디</label><input type="text" size="30" name="id" id="user" required="required" autofocus="autofocus" placeholder="변경할 아이디 입력">
-      					<input type="hidden" name="searchId" value="<%=searchId %>">
+      					<input type="hidden" name="searchId" value="<%=memberDTO.getId()%>">
       					<div class="clear"></div>
       					<label for="user">비밀번호</label><input type="password" size="30" name="pw" id="user">
       					<div class="clear"></div>
-      					<label for="user">주소</label><input type="text" name="address" size="30" id="user">
+      					<label for="user">주소</label><input type="text" name="addr" size="30" id="user">
       					<div class="clear"></div>
       					<label for="user">전화번호</label><input type="tel" name="tel" size="30" id="user">
       					<div class="clear"></div>

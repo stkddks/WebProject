@@ -161,7 +161,7 @@ td {
 <title>Travel</title>
 </head>
 <body>
-<form action="members/memberUpdateConfirm.jsp" method="get">
+<form action="memberUpdate.mb" method="get">
 <!-- <form action="index.jsp?page=boardUpdateConfirm" method="get"> -->
 		
 		<div id="wrap">

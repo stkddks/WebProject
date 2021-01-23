@@ -3,6 +3,8 @@
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%-- <jsp:useBean id="boardSearch" class="kh.or.kh.board.BoardDAO" scope="page" /> --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,46 +174,27 @@ td {
 <title>Travel</title>
 </head>
 <body>
-	<form action="members/memberSearch.jsp" method="get">
+	<form action="memberSearch.mb" method="get">
 
 		<div id="wrap">
-			<h1 class="title">ID search</h1>
+			<h1 class="title">content search</h1>
 			<div class="form">
 				<div class="form2">
 					<div class="form3">
-						<input type="hidden" name="memberTest" value="../index.jsp?page=members/memberSearchForm"> 
-						<label for="user">찾을 아이디</label> 
-						<input type="text" name="id" autofocus="autofocus" required="required" placeholder="제목입력" id="user">
+						 
+							<label for="user">찾을 아이디</label> 
+							<input type="text" name="id" autofocus="autofocus" required="required" placeholder="제목입력" id="user">
 						<div class="clear"></div>
+
 					</div>
 					<div class="form4">
 						<input type="submit" value="검색하기">
 					</div>
 					<br><br><br>
-					<%
-					request.setCharacterEncoding("utf-8");
-					response.setContentType("text/html;charset=utf-8");
-					String id = request.getParameter("id");
-					String pw = request.getParameter("pw");
-					String address =request.getParameter("address");
-					String tel = request.getParameter("tel");
-					%>
-					<table border="1" cellspacing="0" cellpadding="0">
-							<tr>
-								<th>아이디</th>
-								<th>비밀번호</th>
-								<th>주소</th>
-								<th>전화번호</th>
-							</tr>
-						<tr>
-							<%
-							out.print("<tr><td>" + id + "</td><td>" + pw + "</td><td>" + address + "</td><td>" + tel + "</td></tr>");
-							%>
-						</tr>
-					</table>
+					
 					<div class="form5">
-						<input type="button" value="회원목록" onclick='location.href="../index.jsp?page=members/memberList"'>
-						<input type="button" value="메인페이지" onclick='location.href="../index.jsp"'>
+						<input type="button" value="게시판" onclick='location.href="index.jsp?page=board/boardList"'>
+						<input type="button" value="메인페이지" onclick='location.href="index.jsp"'>
 							<!-- <label><input type="button" value="학생리스트" onclick='location.href="studentList.jsp"'></label> 
 							<label><input type="button" value="메인페이지" onclick='location.href="index.jsp"'></label> -->
 						</div>

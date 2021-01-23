@@ -1,3 +1,6 @@
+<%@page import="kr.or.kh.member.MemberDTO"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
@@ -12,32 +15,6 @@ body {
 	font-family: "맑은 고딕";
 	font-size: 15px;
 	color: white;
-}
-
-.title {
-	font-size: 50px;
-	text-shadow: 0 0 10px yellow;
-	color: #fff;
-	margin: 0 auto;
-	text-align: center;
-	text-transform: capitalize;
-	font-family: "맑은 고딕";
-	font-style: italic;
-}
-
-#wrap li {
-	float: left;
-	margin: 20px;
-}
-
-a {
-	text-decoration: none;
-	color: white;
-	font-size: 13px;
-}
-
-a:hover {
-	text-decoration: underline;
 }
 
 #wrap {
@@ -94,8 +71,19 @@ a:hover {
 	height: 1000px;
 }
 
+.title {
+	font-size: 50px;
+	text-shadow: 0 0 10px yellow;
+	color: #fff;
+	margin: 0 auto;
+	text-align: center;
+	text-transform: capitalize;
+	font-family: "맑은 고딕";
+	font-style: italic;
+}
+
 .form {
-	width: 498px;
+	width: auto;
 	height: auto;
 	border-radius: 25px;
 	border: 5px double #999;
@@ -103,27 +91,35 @@ a:hover {
 }
 
 .form2 {
-	width: 380px;
-	height: 100px;
-	margin: 80px auto;
-	text-align: center;
+	width: 500px;
+	/* min-width: 320px; */
+	height: auto;
+	margin: 20px auto;
 }
 
 .form3 {
-	float: left;
+	margin: 0px; auto;
+	padding: 0px 0px;
+	text-align: center;
 	/*   background:#f00;  */
+}
+
+.form3 li {
+	float: left;
+	margin: 20px;
 }
 
 .form3 label {
 	width: 100px;
 	height: 20px;
 	/*  display: block; */
-	float: left;
+	float: center;
 }
 
 .form4 {
-	padding: 0px 0px 0px 0px;
-	float: left;
+	margin: 0px auto;
+	/* padding: 0px 0px; */
+	padding: 20px 0px;
 }
 
 .clear {
@@ -139,7 +135,17 @@ input[type="submit"] {
 	border-radius: 5px;
 	border: none;
 	font-family: "맑은 고딕";
-	margin-left: 20px;
+}
+
+input[type="button"] {
+	width: 32%;
+	height: 30px;
+	background: skyblue;
+	border-radius: 5px;
+	/*  width: 140px; */
+	font-family: "맑은 고딕";
+	margin-top: 20px;
+	margin-left: 1.5px;
 }
 
 table {
@@ -159,30 +165,49 @@ td {
 	width: 4000px;
 }
 </style>
-
 <meta charset="UTF-8">
-<title>Travle</title>
+<title>Travel</title>
 </head>
 <body>
-	<form action="memberDelete.mb" method="get">
-		
+	<form action="index.jsp" method="get">
+
 		<div id="wrap">
-			<h1 class="title">member delete</h1>
+			<h1 class="title">Member Search</h1>
 			<div class="form">
 				<div class="form2">
 					<div class="form3">
-						<label for="user">삭제아이디</label> <input type="text" name="id"
-							id="user">
+						<%
+							MemberDTO memberDTO = (MemberDTO) request.getAttribute("memberDTO");
+						/* memberSearch.memberReadcount(memberDTO); */
+						%>
+						<table border="1" cellspacing="0" cellpadding="0">
+							<tr>
+								<th>아이디</th>
+								<th>비번</th>
+								<th>주소</th>
+								<th>전화번호</th>
+							</tr>
+							<tr>
+								<td><%=memberDTO.getId()%></td>
+								<td><%=memberDTO.getPw()%></td>
+								<td><%=memberDTO.getAddr()%></td>
+								<td><%=memberDTO.getTel()%></td>
+							</tr>
+						</table>
 					</div>
 					<div class="form4">
-						<!-- <input type="submit" value="삭제하기" onClick="location.href='studentList.jsp'" > -->
-						<input type="submit" value="삭제하기"
-							onclick='location.href="memberDelete.mb"'>
-						<!-- <input type="submit" value="삭제하기"> -->
+						<input type="button" value="메인페이지"
+							onclick='location.href="index.jsp"'>
+						<input type="button" value="로그인하기"
+							onclick='location.href="index.jsp?page=members/login"'>
+						<input type="button" value="수정하기"
+							onclick='location.href="index.jsp?page=members/memberUpdateForm"'>
+						<!-- <a href="student.jsp"></a> <a href="studentList.jsp"></a> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
+
 </body>
 </html>
