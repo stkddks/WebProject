@@ -1,4 +1,4 @@
-<%@page import="kr.or.kh.member.MemberDTO"%>
+<%@page import="member.MemberDTO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
