@@ -104,7 +104,7 @@ input[type="checkbox"] {
 <title>Insert title here</title>
 </head>
 <body>
-<form action="members/loginProcess.jsp">
+<form action="memberLogin.mb">
   <div id="wrap">
    <h1 class="title">member login</h1>
    <div class="form">
@@ -119,11 +119,11 @@ input[type="checkbox"] {
      <input type="submit" value="로그인하기">
      <div class="clear"></div>
      <div class="form4">
-      <label><input type="checkbox">아이디저장</label> <label><input
-       type="checkbox">보안접속</label>
+      <label><input type="checkbox">아이디저장</label> <label>
+      <input type="checkbox">보안접속</label>
       <div class="clear"></div>
       <input type="button" value="회원가입"> 
-      <input type="button" value="아이디/비밀번호 찾기">
+      <input type="button" value="아이디/비밀번호 찾기" onclick='location.href="index.jsp?page=members/memberIdSearchForm"'>
      </div>
     </div>
    </div>

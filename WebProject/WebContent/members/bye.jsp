@@ -166,10 +166,10 @@ td {
 <title>Travel</title>
 </head>
 <body>
-	<form action="bye2.jsp" method="get">
+	<form action="memberBye.mb" method="get">
 
 		<div id="wrap">
-			<h1 class="title">ID Bye</h1>
+			<h1 class="title">Member Bye</h1>
 			<div class="form">
 				<div class="form2">
 					<div class="form3">
@@ -178,7 +178,7 @@ td {
 						<label><%= id %>회원님, 정말로 탈퇴하시겠습니까? (가지마세요..)</label> 
 						<div class="clear"></div>
 					<div class="form4">
-						<input type="button" value="예, 다신 안오겠습니다" onclick='location.href="index.jsp?page=bye2"'>
+						<input type="button" value="예, 다신 안오겠습니다" onclick='location.href="memberBye.mb"'>
 						<input type="button" value="아니요, 남을께요" onclick='location.href="index.jsp"'>
 						</div>
 					</div>

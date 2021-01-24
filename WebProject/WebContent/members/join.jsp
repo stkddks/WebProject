@@ -98,9 +98,29 @@ input[type="button"] {
 input[type="checkbox"] {
  margin-top:20px;
 }
-
-
 </style>
+
+<script type="text/javascript">
+  /*  function win01(idform){
+	   //document.write(idform.id.value);
+      window.open("idcheckall.jsp?id="+idform.id.value,"win01","width=250 height=250");
+   } */
+   function idcheck() {
+	      var id = $('#id').val();
+	      if (id == "") {
+	         alert('아이디를 입력해주세요.');
+	      } else if (id == " ") {
+	         //alert('아이디를 입력해주세요.');
+	         return false;
+	      } else {
+	         window.open("idCheckAll.jsp?id=" + id, "idcheck",
+	               "width=400 height=500");
+	      }
+	      //alert(id);
+	   }
+   
+</script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -111,7 +131,9 @@ input[type="checkbox"] {
    <div class="form">
     <div class="form2">
      <div class="form3">
-      <label for="user">아이디</label><input type="text" name="id" id="user">
+      <label for="user">아이디</label>
+      <input type="text" name="id" id="user">
+      <input type="button" value="아이디중복확인" onclick="idcheck()">
       <div class="clear"></div>
       <label for="user">비밀번호</label><input type="password" name="pw" id="user">
       <div class="clear"></div>
