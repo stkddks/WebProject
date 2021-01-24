@@ -1,0 +1,100 @@
+@charset "UTF-8";
+body {
+	background-image: url(../images/background.jpg);
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.6;
+	color: white;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+	font-size: 13px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#ALL {
+	margin: 10px 10px;
+	padding: 20px 20px;
+	background-image: url(../images/camera.jpg);
+}
+
+.menu {
+	height: 45px;
+	background: #000;
+}
+
+.menu ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.menu ul li {
+	float: left;
+	overflow: hidden;
+	text-align: center;
+	line-height: 45px;
+}
+
+.menu ul li a {
+	position: relative;
+	display: block;
+	width: 110px;
+	height: 45px;
+	color: #FFF;
+	font-family: Arial;
+	font-size: 11px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.menu ul li a span {
+	position: absolute;
+	top: 0px;
+	left: 0;
+	width: 110px;
+}
+
+.menu ul li a span.over {
+	top: -45px;
+}
+
+.menu ul li a span.over {
+	background: #FFF;
+	color: #000;
+}
+
+.member {
+	position: absolute;
+	top: 20px; right: 30px;
+	width: auto; height: 30px;
+	text-align: center;
+	color: white;
+	z-index: 100;
+	border-radius: 5px;
+	background-color: black;
+	padding: 0px 20px;
+}
+
+.idLogin{
+position: absolute;
+top : 130px;
+right : 30px;
+color: white;
+font-size: 15px;
+border-radius: 10px;
+/* background-color: #001659; */
+/* background-color: #001659; */
+background-color: black;
+padding: 0px 20px;
+font-weight: bolder;
+text-shadow: 0 0 10px yellow;
+}
