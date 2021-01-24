@@ -1,4 +1,4 @@
-package board;
+package kh.or.kh.board;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
