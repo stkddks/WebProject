@@ -47,7 +47,7 @@
 				<!-- <li><a href="index.jsp?page=haksainfo">학사소개</a></li>
 				<li><a href="index.jsp?page=boardList">커뮤니티</a></li>
 				<li><a href='index.jsp?page=memberList'>회원목록보기</a></li>  -->
-				<li><a href="board/mailForm.jsp">자바메일</a></li>
+				<li><a href="mail/mailForm.jsp">자바메일</a></li>
 				<li><a href="#">KHB클래스</a></li>
 				<li><a href="#">기타</a></li>
 			</ul>
