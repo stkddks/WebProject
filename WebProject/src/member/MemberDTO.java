@@ -1,4 +1,4 @@
-package member;
+package kr.or.kh.member;
 
 import java.io.Serializable;
 

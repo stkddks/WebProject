@@ -1,4 +1,4 @@
-package member;
+package kr.or.kh.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -99,7 +99,7 @@ public class MemberServlet extends HttpServlet {
       
       else if(command.equals("/memberLogout.mb")) { //로그아웃
           session.invalidate();
-          out.print("<script>alert('로그아웃 되었습니다.'); location.href='index.jsp?page=center';</script>"); 
+          out.print("<script>alert('로그아웃 되었습니다.'); location.href='index.jsp';</script>"); 
        } //로그아웃
       
 

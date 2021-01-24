@@ -1,4 +1,4 @@
-package member;
+package kr.or.kh.member;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import board.BoardDTO;
+import kh.or.kh.board.BoardDTO;
 
 public class MemberDAO {
 	private MemberDTO memberDTO;
