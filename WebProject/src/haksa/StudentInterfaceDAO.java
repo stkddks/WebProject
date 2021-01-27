@@ -1,4 +1,4 @@
-package haksa;
+package kr.or.kh.haksa;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
