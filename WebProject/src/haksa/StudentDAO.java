@@ -1,30 +1,15 @@
-
 package haksa;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class StudentDAO  extends HaksaDAO{
+public class StudentDAO  extends HaksaDAO implements StudentInterfaceDAO{
    // private ArrayList<StudentDTO> studentList;
     
     public StudentDAO() throws ClassNotFoundException {
       
     }
-
-    
-    //실행 메소드를 따로 만들어준다
-    public int studentExecuter() throws SQLException{		//오버로드니까 따로 상속을 굳이 안해줘도 된다(어차피 오버로드를 쓴 것이니까)
-		cnt=pstmt.executeUpdate();	
-		return cnt;
-	}
-    public ResultSet studentExecuter(ResultSet rs) throws SQLException{
-    	rs=pstmt.executeQuery();
-    	return rs;
-    }
-    
-    //실행메소드 2개!
-    // 이게 오버로드다! 함수의 이름은 똑같되 파라미터를 다르게 주는것!
-    
+    @Override
     public int studentRegisterSql(StudentDTO studentDTO) throws SQLException {
     	conn = getConnection();
     	sql = "insert into StudentA (age,name,hakbun) values(?,?,?)";
@@ -35,7 +20,7 @@ public class StudentDAO  extends HaksaDAO{
         cnt = studentExecuter();
         return cnt;
     }
-    
+    @Override
     public ResultSet studentListSql() throws SQLException{
     	conn = getConnection();
     	sql = "select * from StudentA";
@@ -44,6 +29,7 @@ public class StudentDAO  extends HaksaDAO{
 		rs = studentExecuter(rs);
 		return rs;
     }
+    @Override
     public int studentDeleteSql(String deleteName) throws SQLException{
     	conn = getConnection();
     	sql = "delete from StudentA where name=?";
@@ -52,6 +38,7 @@ public class StudentDAO  extends HaksaDAO{
 		cnt = studentExecuter();
     	return cnt;
     }
+    @Override
     public ResultSet studentSearchSql(String searchName) throws SQLException{
     	conn = getConnection();
     	String sql="select * from StudentA where name=?";
@@ -60,7 +47,7 @@ public class StudentDAO  extends HaksaDAO{
     	rs = studentExecuter(rs);
     	return rs;
     }
-
+    @Override
     public int studentUpdateSql(String updatehName, StudentDTO studentDTO) throws SQLException{
     	conn = getConnection();
     	String sql = "update StudentA set name=?, age=?, hakbun=? where name=?";

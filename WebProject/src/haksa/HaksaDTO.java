@@ -1,5 +1,7 @@
 package haksa;
 
+import java.lang.invoke.StringConcatFactory;
+
 public abstract class HaksaDTO {
 private int no;
 private String age;

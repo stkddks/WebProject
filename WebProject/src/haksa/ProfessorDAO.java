@@ -4,21 +4,10 @@ package haksa;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProfessorDAO extends HaksaDAO{
+public class ProfessorDAO extends HaksaDAO implements ProfessorInterfaceDAO{
     public ProfessorDAO() throws ClassNotFoundException {
     }
-    //실행 메소드를 따로 만들어준다
-    public int professorExecuter() throws SQLException{
-		cnt=pstmt.executeUpdate();	
-		return cnt;
-	}
-    public ResultSet professorExecuter(ResultSet rs) throws SQLException{
-    	rs=pstmt.executeQuery();
-    	return rs;
-    }
-    //실행메소드 2개!
-    // 이게 오버로드다! 함수의 이름은 똑같되 파라미터를 다르게 주는것!
-    
+    @Override
     public int professorRegisterSql(ProfessorDTO professorDTO) throws SQLException {
     	conn = getConnection();
     	sql = "insert into ProfessorA (age,name,subject) values(?,?,?)";
@@ -29,7 +18,7 @@ public class ProfessorDAO extends HaksaDAO{
         cnt = professorExecuter();
         return cnt;
     }
-    
+    @Override
     public ResultSet professorListSql() throws SQLException{
     	conn = getConnection();
     	sql = "select * from ProfessorA";
@@ -38,6 +27,7 @@ public class ProfessorDAO extends HaksaDAO{
 		rs = professorExecuter(rs);
 		return rs;
     }
+    @Override
     public int professorDeleteSql(String deleteName) throws SQLException{
     	conn = getConnection();
     	sql = "delete from ProfessorA where name=?";
@@ -46,6 +36,7 @@ public class ProfessorDAO extends HaksaDAO{
 		cnt = professorExecuter();
     	return cnt;
     }
+    @Override
     public ResultSet professorSearchSql(String searchName) throws SQLException{
     	conn = getConnection();
     	String sql="select * from ProfessorA where name=?";
@@ -54,7 +45,7 @@ public class ProfessorDAO extends HaksaDAO{
     	rs = professorExecuter(rs);
     	return rs;
     }
-
+    @Override
     public int professorUpdateSql(String updatehName, ProfessorDTO professorDTO) throws SQLException{
     	conn = getConnection();
     	String sql = "update ProfessorA set name=?, age=?, subject=? where name=?";
