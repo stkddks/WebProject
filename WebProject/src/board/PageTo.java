@@ -3,7 +3,7 @@ package board;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import kh.or.kh.board.BoardDTO;
+import board.BoardDTO;
 
 public class PageTo implements Serializable{
 	// 이미 있는 데이터를 가져오는 역할만 하므로 객체직렬화 하지 않는다.
@@ -12,7 +12,6 @@ public class PageTo implements Serializable{
 	private int perPage=20; // 한번에 표시되는 페이지 수
 	private int totalCount;
 	public PageTo() {
-		this.perPage = 5;
 	}
 
 	public PageTo(ArrayList<BoardDTO> list, int curPage, int totalCount) {
@@ -53,4 +52,4 @@ public class PageTo implements Serializable{
 	public void setTotalCount(int totalCount) {
 	this.totalCount = totalCount;
 	}
-}
+	}

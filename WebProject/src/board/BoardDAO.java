@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class BoardDAO {
+public class BoardDAO implements BoardInterfaceDAO{
 	private BoardDTO boardDTO;
 	// private BoardDAO boardDAO;
 	private ArrayList<BoardDTO> boardList;
@@ -52,6 +52,7 @@ public class BoardDAO {
 
 	}
 
+	@Override
 	public int boardRegister(BoardDTO boardDTO) throws SQLException {
 		conn = getConnection();
 		sql = "insert into BoardA(title,content,author,nal,readcount) values(?,?,?,?,?)";
@@ -65,6 +66,7 @@ public class BoardDAO {
 		return cnt;
 	}
 
+	@Override
     public ArrayList<BoardDTO> boardList() throws SQLException{
     	conn=getConnection();
     	sql="select * from BoardA order by no asc";
@@ -85,66 +87,89 @@ public class BoardDAO {
     	return boardList; //그냥 배열에 담아버려서 리턴으로 돌려주겠다.
     }
 	
-    public int totalCount(){//페이징처리: 전체레코드 개수 구하기
-        int count=0;
-        try {
-           conn=getConnection();
-           sql = "select count(*) from BoardA";
-           pstmt = conn.prepareStatement(sql);
-           rs = pstmt.executeQuery();
-           if(rs.next()){
-              count = rs.getInt(1);
-           }
-     } catch (SQLException e) {
-        e.printStackTrace();
-     }   
-        return count;
-     }//페이징처리: 전체레코드 개수 구하기
+	@Override
+	public int totalCount() {
+		int count = 0;
+		try {
+			conn = getConnection();
+			sql = "select count(num) from board";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+//			finally {
+//			closeAll(rs, pstmt, con);
+//		}
+		return count;
+	}
+	
+	@Override
+	public PageTo page(int curPage) {
+		PageTo pageTo = new PageTo();
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		try {
+			conn = getConnection();
+			sql="select * from BoardA order by no asc";
+//			sql = "select * from (select rownum rnum, num, author, title, "
+//					+ "content, to_char (writeday,'yyyy/MM/DD')writeday, readCnt, repRoot, "
+//					+ "repStep, repIndent from (select * from board order by repRoot "
+//					+ "desc,repStep asc)) where rnum>=? and rnum<=? ";
+			// from 테이블명 을 쓰면 relation도 가져온다.
+			pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+					// TYPE_SCROLL_INSENSITIVE 는 가능하나, 변경된 사항은 적용되지 않음
+					// 양방향 스크롤시 업데이티 반영안함
+					// CONCUR_READ_ONLY 는 커서릐 위치에서 정보 업데이트불가, ResultSet의 변경이 불가능
 
-
-	public PageTo page(int curPage) {//페이지구현
-	      PageTo pageTo = new PageTo();
-	      int totalCount = totalCount();
-	      ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-	      try {
-	         conn=getConnection();
-	         sql = "select no,title,content,author,nal,readcount from BoardA";
-	         pstmt = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-	         //TYPE_SCROLL_INSENSITIVE:scroll은 가능하나, 변경된 사항은 적용되지 않음
-	         //양방향, 스크롤 시 업데이트 반영안함
-	         //CONCUR_READ_ONLY :커서의 위치에서 정보 업데이트 불가,ResultSet의 변경이 불가능
-	         rs = pstmt.executeQuery();
-	         int perPage = pageTo.getPerPage();//5
-	         int skip = (curPage-1) * perPage;
-	         if(skip>0){
-	            rs.absolute(skip);
-	         }
-	         //ResultSet의 absolute메소드를 이용하여 해당 페이지의 Cursor 의 위치로 이동...
-	         for(int i=0;i<perPage && rs.next();i++){
-	            int no = rs.getInt("no");
-	            String title = rs.getString("title");
-	            String content = rs.getString("content");
-	            String author = rs.getString("author");
-	            String nal = rs.getString("nal");
-	            int readCount = rs.getInt("readcount");
-	            
-	            BoardDTO data = new BoardDTO();
-	            data.setNo(no);
-	            data.setTitle(title);
-	            data.setContent(content);
-	            data.setAuthor(author);
-	            data.setNal(nal);
-	            data.setReadcount(readCount);
-	            list.add(data);         
-	         }
-	         pageTo.setList(list);//ArrayList 저장
-	         pageTo.setTotalCount(totalCount);//전체레코드개수
-	         pageTo.setCurPage(curPage);//현재페이지
-	   } catch (SQLException e) {
-	      e.printStackTrace();
-	   }
-	      return pageTo;        
-	}//페이지구현
+//			int startRow = (curPage - 1) * perPage + 1;
+//			int endRow = curPage * perPage;
+//			pstmt.setInt(1, startRow);
+//			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			boardList=new ArrayList<BoardDTO>();
+			int perPage=pageTo.getPerPage();
+			int skip = (curPage-1)*perPage;
+			
+			if(skip>0){
+				rs.absolute(skip);
+				//ResultSet의 absolute메소드를 이용하여 해당페이지의 Cursor의 위치로 이동한다.
+			}
+			
+			for (int i = 0; i < perPage && rs.next(); i++){
+//			while (rs.next()) {
+//				int no = rs.getInt("no");
+//				String title = rs.getString("title");
+//				String content = rs.getString("content");
+//				String author = rs.getString("author");
+//				String nal = rs.getString("nal");
+//				int readCount =rs.getInt("readcount");
+				boardDTO=new BoardDTO();
+				boardDTO.setNo(rs.getInt("no"));
+		    	boardDTO.setTitle(rs.getString("title"));
+		    	boardDTO.setContent(rs.getString("content"));
+		    	boardDTO.setAuthor(rs.getString("author"));
+		    	boardDTO.setNal(rs.getString("nal"));
+		    	boardDTO.setReadcount(Integer.parseInt(rs.getString("readcount")));
+		    	boardList.add(boardDTO);
+				list.add(boardDTO);
+			}
+			int totalCount = totalCount();
+			pageTo.setList(list);
+			pageTo.setCurPage(curPage);
+			pageTo.setTotalCount(totalCount);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+//		finally {
+//			closeAll(rs, pstmt, conn);
+//		}
+		return pageTo;
+	}
+	
+	@Override
 	public int boardDelete(int no) throws SQLException {
 		conn = getConnection();
 		sql = "delete from BoardA where no=?";
@@ -155,6 +180,7 @@ public class BoardDAO {
 
 	}
 
+	@Override
 	public BoardDTO boardSearch(String searchTitle) throws SQLException {
 		conn = getConnection();
 		sql = "select * from BoardA where title=?";
@@ -174,6 +200,7 @@ public class BoardDAO {
 
 	}
 
+	@Override
 	public void boardReadcount(BoardDTO boardDTO) throws SQLException {
 		conn = getConnection();
 		sql = "update BoardA set readcount=? where no=?";
@@ -183,6 +210,7 @@ public class BoardDAO {
 		cnt = pstmt.executeUpdate();
 	}
 
+	@Override
 	public int boardUpdateFinal(String searchTitle, BoardDTO boardDTO) throws SQLException {
 		conn = getConnection();
 		sql = "update BoardA set title=?, content=?, author=?, nal=?, readcount=? where title=?";

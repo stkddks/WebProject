@@ -1,4 +1,4 @@
-package kh.or.kh.board;
+package board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,21 +66,27 @@ public class BoardServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 		else if(command.equals("/boardList.bo")) {
-	         try {
-	        	 boardList = boardDAO.boardList();
-	             RequestDispatcher dis = request.getRequestDispatcher("index.jsp?page=board/boardList");
-	             request.setAttribute("boardList", boardList);
-	             dis.forward(request, response);
-	            //서블릿에서 많이쓰는데 이름과 속성을 묶어서 서버에 저장할때 많이 쓰인다. 어디에 저장을 해? requestd에다가!
-				// Hashset과 거의 흡사
-				// boardList배열에 담아서 보낼 수 있다. 이름을 꺼내면 값이 나오겠지?
-			
-	         } catch (SQLException e) {
-	            e.printStackTrace();
-	         }
+			int curPage = 1;
+			if(request.getParameter("curPage")!=null) {
+				curPage=Integer.parseInt(request.getParameter("curPage"));
+			}
+			PageTo baordList=boardDAO.page(curPage);
+			RequestDispatcher dis = request.getRequestDispatcher("index.jsp?page=board/boardList");
+            request.setAttribute("page", boardList);
+//	         try {
+//	        	 boardList = boardDAO.boardList();
+//	             RequestDispatcher dis = request.getRequestDispatcher("index.jsp?page=board/boardList");
+//	             request.setAttribute("boardList", boardList);
+//	             dis.forward(request, response);
+//	            //서블릿에서 많이쓰는데 이름과 속성을 묶어서 서버에 저장할때 많이 쓰인다. 어디에 저장을 해? requestd에다가!
+//				// Hashset과 거의 흡사
+//				// boardList배열에 담아서 보낼 수 있다. 이름을 꺼내면 값이 나오겠지?
+//			
+//	         } catch (SQLException e) {
+//	            e.printStackTrace();
+//	         }
 	      }
 		
 		else if(command.equals("/boardDelete.bo")){
