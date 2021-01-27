@@ -1,34 +1,19 @@
 
-package kr.or.kh.haksa;
+package haksa;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-public class StudentDAO {
-    private String sql;
-    private PreparedStatement pstmt;
-    private Connection conn;
-    private int cnt;
-    private ResultSet rs;
-    private ArrayList<StudentDTO> studentList;
+public class StudentDAO  extends HaksaDAO{
+   // private ArrayList<StudentDTO> studentList;
     
     public StudentDAO() throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-        studentList = new ArrayList<StudentDTO>(); 
+      
     }
 
-    public Connection getConnection() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123", "bbr123", "alstjr95!");
-        //Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bbr123", "bbr123", "alstjr95!");
-        return conn;
-    }
     
     //실행 메소드를 따로 만들어준다
-    public int studentExecuter() throws SQLException{
+    public int studentExecuter() throws SQLException{		//오버로드니까 따로 상속을 굳이 안해줘도 된다(어차피 오버로드를 쓴 것이니까)
 		cnt=pstmt.executeUpdate();	
 		return cnt;
 	}
@@ -36,6 +21,7 @@ public class StudentDAO {
     	rs=pstmt.executeQuery();
     	return rs;
     }
+    
     //실행메소드 2개!
     // 이게 오버로드다! 함수의 이름은 똑같되 파라미터를 다르게 주는것!
     

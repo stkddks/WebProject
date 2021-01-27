@@ -1,31 +1,15 @@
 
-package kr.or.kh.haksa;
+package haksa;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-public class ManagerDAO {
-    private String sql;
-    private PreparedStatement pstmt;
-    private Connection conn;
-    private int cnt;
-    private ResultSet rs;
-    private ArrayList<ManagerDTO> managerList;
+public class ManagerDAO extends HaksaDAO{
+   
     
     public ManagerDAO() throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-        managerList = new ArrayList<ManagerDTO>(); 
     }
 
-    public Connection getConnection() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123", "bbr123", "alstjr95!");
-        //Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bbr123", "bbr123", "alstjr95!");
-        return conn;
-    }
     
     //실행 메소드를 따로 만들어준다
     public int managerExecuter() throws SQLException{
