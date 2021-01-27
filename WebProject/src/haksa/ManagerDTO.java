@@ -2,7 +2,7 @@ package haksa;
 
 import java.io.Serializable;
 
-public class ManagerDTO extends HaksaDTO implements Serializable {
+public class ManagerDTO extends HaksaDTO implements Serializable, ManagerInterfaceDTO {
    private String dept;
 
    public ManagerDTO() {
@@ -13,11 +13,11 @@ public class ManagerDTO extends HaksaDTO implements Serializable {
       super(no, age, name);
       this.dept = dept;
    }
-
+   @Override
    public String getDept() {
       return dept;
    }
-
+   @Override
    public void setDept(String dept) {
       this.dept = dept;
    }

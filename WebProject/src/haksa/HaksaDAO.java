@@ -1,4 +1,4 @@
-package kr.or.kh.haksa;
+package haksa;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class HaksaDAO {
+public abstract class HaksaDAO {
     protected String sql;
     protected PreparedStatement pstmt;
     protected Connection conn;
@@ -31,5 +31,14 @@ public class HaksaDAO {
         return conn;
     }
 
+    public int studentExecuter() throws SQLException{		//오버로드니까 따로 상속을 굳이 안해줘도 된다(어차피 오버로드를 쓴 것이니까)
+		cnt=pstmt.executeUpdate();	
+		return cnt;
+	}
+    public ResultSet studentExecuter(ResultSet rs) throws SQLException{
+    	rs=pstmt.executeQuery();
+    	return rs;
+    }
+    
 
 }

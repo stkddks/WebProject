@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -132,30 +131,7 @@ public class HaksaServlet extends HttpServlet {
 	               studentDTO.setName(rs.getString("name"));
 	               studentDTO.setHakbun(rs.getString("hakbun"));
 	            }
-//	            response.sendRedirect("studentConfirm.do");
-	            out.print("<style>");
-				out.print("ul{list-style-type: none;");
-				out.print("</style>");
-				out.print("번호: " + studentDTO.getNo() + "이름: " + studentDTO.getName()+"나이: " + studentDTO.getAge()
-						+ "학번: " + studentDTO.getHakbun() + "<br>");
-				out.print("<h1>최종수정 하기 전 내용입니다.</h1>");
-				out.print("<form action=studentUpdateFinal.do method=get>");
-				out.print("<input type=hidden name=updateName value=" + updateName + ">");
-				out.print("<ul>");
-				out.print("<li><label for=이름수정>이름수정</label>");
-				out.print("<input type=text name = name>");
-				out.print("</li>");
-				out.print("<li><label for=나이수정>나이수정</label>");
-				out.print("<input type=number name = age>");
-				out.print("</li>");
-				out.print("<li><label for=학번수정>학번수정</label>");
-				out.print("<input type=number name = hakbun>");
-				out.print("</li>");
-				out.print("<li>");
-				out.print("<input type=image src=images/update.png class=kh01>");
-				out.print("</li>");
-				out.print("</ul>");
-				out.print("</form>");
+	            response.sendRedirect("studentConfirm.do");
 	         } catch (SQLException e) {
 	            e.printStackTrace();
 	         }

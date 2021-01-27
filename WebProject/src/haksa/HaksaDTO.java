@@ -1,6 +1,6 @@
-package kr.or.kh.haksa;
+package haksa;
 
-public class HaksaDTO {
+public abstract class HaksaDTO {
 private int no;
 private String age;
 private String name;
@@ -39,6 +39,10 @@ public String getName() {
 public void setName(String name) {
    this.name = name;
 }
+
+//public abstract String getHakbuun;
+//
+
 
 @Override
 public String toString() {
