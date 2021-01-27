@@ -1,4 +1,4 @@
-package kr.or.kh.haksa;
+package haksa;
 
 public interface StudentInterfaceDTO {
 	 public abstract String getHakbun(); 

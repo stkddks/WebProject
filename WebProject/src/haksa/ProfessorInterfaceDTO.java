@@ -1,4 +1,4 @@
-package kr.or.kh.haksa;
+package haksa;
 
 public interface ProfessorInterfaceDTO {
 	 public abstract String getSubject(); 
